@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+export BM_DEV="/Users/$USER/workspace/mccp"
+export BM_REGION_ID='ibm:ys1:us-south'
+export CLOUDANT_DB="mccp-valdezj-ys1"
+
 function main() {
   function setup_aliases() {
     alias vim=nvim
@@ -22,6 +26,8 @@ function main() {
     alias gbtl="gobosh_target_lite"
     alias cft="cf_target"
     alias cftl="cf_target local"
+    alias bosh="bosh-cli"
+    alias del="rmtrash"
   }
 
   function setup_environment() {
@@ -63,12 +69,13 @@ function main() {
     eval "$(fasd --init auto)"
   }
 
+  function setup_fzf() {
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+  }
+
   function setup_completions() {
-    if [ -d $(brew --prefix)/etc/bash_completion.d ]; then
-      for F in $(brew --prefix)/etc/bash_completion.d/*; do
-        . ${F}
-      done
-    fi
+    # http://davidalger.com/development/bash-completion-on-os-x-with-brew/
+    source "$(brew --prefix)/etc/bash_completion"
   }
 
   function setup_direnv() {
@@ -102,6 +109,7 @@ function main() {
         rbenv
         aws
         fasd
+        fzf
         completions
         direnv
         gitprompt
@@ -111,6 +119,29 @@ function main() {
     eval "setup_${dependency}"
     unset -f "setup_${dependency}"
   done
+
+  # MCCP nvm
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+}
+
+# MCCP
+function runlocal {
+   if [ $# -gt 1 ]; then
+      echo "Usage: runlocal [<port>]"
+      echo "       where default port is 3000"
+      return 1
+   fi
+   if [ $# -eq 0 ]; then
+      export LOCAL_PORT=3000
+   else
+      export LOCAL_PORT=$1
+   fi
+   echo "running $BM_DEFAULT_APP locally for region $BM_REGION_ID"
+   cd $BM_DEV/bin
+   node mgr local $BM_REGION_ID
 }
 
 function reload() {

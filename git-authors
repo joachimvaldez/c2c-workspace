@@ -7,9 +7,22 @@ authors:
   sp: Sabha Parameswaran; sparameswaran
   gr: Gabriel Rosenhouse; grosenhouse
   ao: Aidan Obley; aobley
+  th: Tiffany Harris; Tiffany-Harris
+  gr: Gabriel Rosenhouse; grosenhouse
+  sw: Steven Whitehead; Steven-Whitehead
+  dc: Danny Cao; dcao
+  em: Eric Millin; Eric-T-Millin
+  ap: Alex Parker; Alexander-Parker
+  am: Apoorv Mahajan; amahajan
 
 email:
   domain: pivotal.io
 
 email_addresses:
   jv: valdezj@us.ibm.com
+  th: Tiffany.Harris@ibm.com
+  sw: Steven.Whitehead@ibm.com
+  dc: dcao@us.ibm.com
+  em: Eric.T.Millin@ibm.com
+  ap: Alex Parker; Alexander-Parker
+  am: Apoorv Mahajan; amahajan
